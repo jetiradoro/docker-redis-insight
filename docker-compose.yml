@@ -1,0 +1,21 @@
+version: '3.9'
+services:
+  redis-ui:
+    image: redislabs/redisinsight
+    container_name: redis-ui
+    env_file:
+      - .env
+    environment:
+      - VIRTUAL_HOST=redis-ui.loc
+      - VIRTUAL_PORT=5540
+    networks:
+      - docker-net
+    volumes:
+      - ./data:/data
+    # ports:
+    #   - ${HOST_PORT}:5540
+    restart: unless-stopped
+
+networks:
+  docker-net:
+    external: ${EXTERNAL_NET}
